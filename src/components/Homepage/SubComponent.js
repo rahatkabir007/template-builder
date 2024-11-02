@@ -2,7 +2,7 @@
 import React from 'react';
 
 function SubComponent({ sub }) {
-    const { label, type, value, src, alt, href, attributes } = sub.componentInfo;
+    const { type, value, src, alt, href, attributes } = sub.componentInfo;
 
     switch (type) {
         case "image":
