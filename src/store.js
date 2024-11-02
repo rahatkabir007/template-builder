@@ -1,10 +1,12 @@
+// redux/store.js
 import { configureStore } from '@reduxjs/toolkit';
-// import TicketReducer from './features/TicketReducer';
+import canvasReducer from './redux/canvasSlice';
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-    // ticketType: TicketReducer
+    canvas: canvasReducer,
   },
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
-
+export default store;

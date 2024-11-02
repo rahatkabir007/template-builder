@@ -1,0 +1,31 @@
+.email-template-builder {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  padding: 10px;
+  background: #f4f4f4;
+}
+
+.canvas {
+  flex: 1;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  min-height: 400px;
+}
+
+.customizer-panel {
+  width: 250px;
+  padding: 10px;
+  background: #fafafa;
+  border-left: 1px solid #ddd;
+}
+
+.toolbar {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
