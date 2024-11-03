@@ -1,34 +1,34 @@
-// Sidebar.js
 import React from 'react';
 import { useDrag } from 'react-dnd';
 import { COMPONENTS } from '../../datas/componentData';
 
 
-function Sidebar({ onDrop }) {
-    return (
-        <div className="sidebar">
-            <h3>Components</h3>
-            {COMPONENTS.map((component) => (
-                <SidebarItem key={component.id} component={component} />
+const Sidebar = () => (
+    <div className="p-4">
+        <h2 className="text-lg font-semibold">Components</h2>
+        <ul>
+            {COMPONENTS.map((comp) => (
+                <DraggableComponent key={comp.id} component={comp} />
             ))}
-        </div>
-    );
-}
+        </ul>
+    </div>
+);
 
-function SidebarItem({ component }) {
+const DraggableComponent = ({ component }) => {
+    console.log(component);
     const [{ isDragging }, drag] = useDrag({
-        type: "component",
-        item: component,
+        type: 'component',
+        item: { component },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         }),
     });
 
     return (
-        <div ref={drag} className="sidebar-item" style={{ opacity: isDragging ? 0.5 : 1 }}>
-            {component.componentInfo.name}
-        </div>
+        <li ref={drag} className="bg-white p-2 my-2 shadow rounded cursor-pointer">
+            {component?.componentInfo?.name}
+        </li>
     );
-}
+};
 
 export default Sidebar;

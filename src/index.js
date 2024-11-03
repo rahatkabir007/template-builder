@@ -5,7 +5,8 @@ import App from './App';
 import { ToastContainer } from "react-toastify";
 import { Provider } from 'react-redux';
 import store from './store';
-
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 
 
@@ -23,7 +24,9 @@ root.render(
       draggable
       pauseOnHover
     />
-    <App />
+    <DndProvider backend={HTML5Backend}>
+      <App />
+    </DndProvider>
   </Provider>
 );
 

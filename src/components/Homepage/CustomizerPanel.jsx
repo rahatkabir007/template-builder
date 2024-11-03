@@ -1,38 +1,46 @@
-// CustomizerPanel.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-function CustomizerPanel({ component, onCustomize }) {
-    if (!component) return null;
+const CustomizerPanel = ({ component }) => {
+    const [style, setStyle] = useState(component ? component.style : {});
 
-    const handleChange = (field, value) => {
-        onCustomize(component.id, field, value);
+    useEffect(() => {
+        if (component) {
+            setStyle(component.style);
+        }
+    }, [component]);
+
+    const handleStyleChange = (e) => {
+        const { name, value } = e.target;
+        setStyle((prevStyle) => ({ ...prevStyle, [name]: value }));
     };
 
     return (
-        <div className="customizer-panel">
-            <h3>Customize {component.componentInfo.name}</h3>
-            {component.subComponents.map((sub, index) => (
-                <div key={index}>
-                    <label>{sub.componentInfo.label}</label>
-                    {sub.componentInfo.type === "text" && (
-                        <input
-                            type="text"
-                            value={sub.componentInfo.value}
-                            onChange={(e) => handleChange("value", e.target.value)}
-                        />
-                    )}
-                    {sub.componentInfo.type === "image" && (
-                        <input
-                            type="text"
-                            value={sub.componentInfo.src}
-                            onChange={(e) => handleChange("src", e.target.value)}
-                        />
-                    )}
-                    {/* Add more fields for customization as needed */}
+        <div className="bg-gray-100 p-4">
+            <h2 className="text-lg font-semibold">Customizer</h2>
+            {component ? (
+                <div>
+                    <label className="block mt-2">Font Size</label>
+                    <input
+                        type="number"
+                        name="fontSize"
+                        // value={style.fontSize || ''}
+                        onChange={handleStyleChange}
+                        className="p-2 border border-gray-300 rounded w-full"
+                    />
+                    <label className="block mt-2">Color</label>
+                    <input
+                        type="color"
+                        name="color"
+                        value={style.color || ''}
+                        onChange={handleStyleChange}
+                        className="p-2 border border-gray-300 rounded w-full"
+                    />
                 </div>
-            ))}
+            ) : (
+                <p>Select a component to customize</p>
+            )}
         </div>
     );
-}
+};
 
 export default CustomizerPanel;
