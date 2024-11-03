@@ -80,26 +80,34 @@ const CustomizerPanel = () => {
                 case 'width':
                 case 'height':
                 case 'marginTop':
+                case 'marginBottom':
+                case 'paddingTop':
+                case 'paddingBottom':
+                case 'paddingLeft':
+                case 'paddingRight':
+                case 'borderRadius':
                     fields.push(
                         <div key={property}>
                             <label className="block mt-2 capitalize">{property}</label>
-                            <input
-                                type="number"
-                                name={property}
-                                value={parseFloat(style[property]) || ''}
-                                onChange={(e) => handleStyleChange(e)}
-                                className="p-2 border border-gray-300 rounded w-full"
-                            />
-                            <select
-                                value={styleUnits[property] || 'px'}
-                                onChange={(e) => handleUnitChange(e, property)}
-                                className="p-2 border border-gray-300 rounded mt-1"
-                            >
-                                <option value="px">px</option>
-                                <option value="%">%</option>
-                                <option value="em">em</option>
-                                <option value="rem">rem</option>
-                            </select>
+                            <div className='flex items-center gap-2'>
+                                <input
+                                    type="number"
+                                    name={property}
+                                    value={parseFloat(style[property]) || ''}
+                                    onChange={(e) => handleStyleChange(e)}
+                                    className="p-2 border border-gray-300 rounded w-full"
+                                />
+                                <select
+                                    value={styleUnits[property] || 'px'}
+                                    onChange={(e) => handleUnitChange(e, property)}
+                                    className="p-2 border border-gray-300 rounded"
+                                >
+                                    <option value="px">px</option>
+                                    <option value="%">%</option>
+                                    <option value="em">em</option>
+                                    <option value="rem">rem</option>
+                                </select>
+                            </div>
                         </div>
                     );
                     break;
@@ -143,7 +151,7 @@ const CustomizerPanel = () => {
         return (
             <>
                 {fields}
-                {selectedComponent.componentInfo.type === 'text' && (
+                {(selectedComponent.componentInfo.type === 'text' || selectedComponent.componentInfo.type === 'heading' || selectedComponent.componentInfo.type === 'button') && (
                     <div>
                         <label className="block mt-2">Text Content</label>
                         <input
