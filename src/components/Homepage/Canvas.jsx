@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { renderSubComponents } from '../../utils/renderSubComponents';
 
 const Canvas = () => {
+    const selectedComponent = useSelector(state => state.canvas.selectedComponent);
     const components = useSelector(state => state.canvas.components);
     const dispatch = useDispatch();
 
@@ -50,7 +51,7 @@ const Canvas = () => {
                         key={index}
                         className="p-4 bg-white rounded shadow cursor-pointer flex flex-col items-center justify-center"
                     >
-                        {renderSubComponents(comp?.subComponents, handleSelectedComponent)}
+                        {renderSubComponents(comp?.subComponents, handleSelectedComponent, selectedComponent)}
                     </div>
                 ))}
             </div>
