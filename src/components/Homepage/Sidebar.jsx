@@ -6,7 +6,7 @@ const Sidebar = () => {
 
     return (
         <div className="p-4">
-            <h2 className="text-lg font-semibold">Components</h2>
+            <h2 className="text-lg font-semibold obje">Components</h2>
             <ul>
                 {COMPONENTS.map((comp) => (
                     <DraggableComponent key={comp.id} component={comp} />

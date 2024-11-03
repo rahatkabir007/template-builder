@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateComponentStyle } from '../../redux/canvasSlice';
+import { objectCover, textAlign, units } from '../../datas/componentData';
 
 const CustomizerPanel = () => {
     const selectedComponent = useSelector(state => state.canvas.selectedComponent);
@@ -102,10 +103,13 @@ const CustomizerPanel = () => {
                                     onChange={(e) => handleUnitChange(e, property)}
                                     className="p-2 border border-gray-300 rounded"
                                 >
-                                    <option value="px">px</option>
-                                    <option value="%">%</option>
-                                    <option value="em">em</option>
-                                    <option value="rem">rem</option>
+                                    {
+                                        units?.map((unit) => (
+                                            <option key={unit?.value} value={unit?.value}>
+                                                {unit?.label}
+                                            </option>
+                                        ))
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -136,9 +140,34 @@ const CustomizerPanel = () => {
                                 onChange={handleStyleChange}
                                 className="p-2 border border-gray-300 rounded w-full"
                             >
-                                <option value="left">Left</option>
-                                <option value="center">Center</option>
-                                <option value="right">Right</option>
+                                {
+                                    textAlign.map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                    );
+                    break;
+                case 'objectFit':
+                    fields.push(
+                        <div key={property}>
+                            <label className="block mt-2">Object Fit</label>
+                            <select
+                                name="objectFit"
+                                value={style.objectFit || 'cover'}
+                                onChange={handleStyleChange}
+                                className="p-2 border border-gray-300 rounded w-full"
+                            >
+                                {
+                                    objectCover.map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))
+                                }
                             </select>
                         </div>
                     );

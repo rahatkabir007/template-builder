@@ -135,3 +135,73 @@ export const COMPONENTS = [
         ],
     },
 ];
+
+export const textAlign = [
+    {
+        value: "left",
+        label: "Left",
+    },
+    {
+        value: "center",
+        label: "Center",
+    },
+    {
+        value: "right",
+        label: "Right",
+    }
+]
+
+export const objectCover = [
+    {
+        value: "cover",
+        label: "Cover",
+    },
+    {
+        value: "contain",
+        label: "Contain",
+    },
+    {
+        value: "none",
+        label: "None",
+    },
+    {
+        value: "fill",
+        label: "Fill",
+    },
+
+]
+
+export const units = [
+    {
+        value: "px",
+        label: "px",
+    },
+    {
+        value: "%",
+        label: "%",
+    },
+    {
+        value: "em",
+        label: "em",
+    },
+    {
+        value: "rem",
+        label: "rem",
+    },
+    {
+        value: "vw",
+        label: "vw",
+    },
+    {
+        value: "vh",
+        label: "vh",
+    },
+    {
+        value: "vmin",
+        label: "vmin",
+    },
+    {
+        value: "vmax",
+        label: "vmax",
+    },
+]
