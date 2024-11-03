@@ -34,7 +34,7 @@ const Canvas = () => {
         dispatch(setComponents([...components, newComponentInstance]));
     };
 
-    const handlesetSelectedComponent = (subComp) => {
+    const handleSelectedComponent = (subComp) => {
         dispatch(setSelectedComponent(subComp));
     };
 
@@ -50,7 +50,7 @@ const Canvas = () => {
                         key={index}
                         className="p-4 bg-white rounded shadow cursor-pointer flex flex-col items-center justify-center"
                     >
-                        {renderSubComponents(comp?.subComponents, handlesetSelectedComponent)}
+                        {renderSubComponents(comp?.subComponents, handleSelectedComponent)}
                     </div>
                 ))}
             </div>
