@@ -10,11 +10,11 @@ const Canvas = ({ onSelectComponent }) => {
         localStorage.setItem('canvasComponents', JSON.stringify(components));
     }, [components]);
 
-    const [drop] = useDrop({
+    const [{ isOver }, drop] = useDrop({
         accept: 'component',
         drop: (item) => addComponent(item.component),
         collect: (monitor) => ({
-            isOver: !!monitor.isOver(),
+            isOver: monitor.isOver(),
         }),
     });
 
@@ -27,7 +27,7 @@ const Canvas = ({ onSelectComponent }) => {
     };
 
     return (
-        <div ref={drop} className="p-4">
+        <div ref={drop} className={`p-4 ${isOver ? 'bg-gray-100' : ''}`}>
             <h2 className="text-lg font-semibold">Canvas</h2>
             {components.map((comp, index) => (
                 <div
@@ -46,8 +46,6 @@ const Canvas = ({ onSelectComponent }) => {
 const renderSubComponents = (subComponents) => {
     return subComponents.map((subComp, index) => {
         const { type, src, alt, value, href, as, attributes } = subComp.componentInfo;
-
-        // Common style attribute handling
         const style = attributes?.style || {};
 
         switch (type) {

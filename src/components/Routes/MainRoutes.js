@@ -13,7 +13,7 @@ const MainRoutes = () => {
                 {
                     mainroutes.map(route => {
                         return (
-                            <Route path={route.path} element={route.element}> </Route>
+                            <Route key={route.path} path={route.path} element={route.element}> </Route>
                         )
                     })
                 }
