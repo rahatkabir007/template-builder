@@ -17,10 +17,20 @@ const canvasSlice = createSlice({
             state.selectedComponent = action.payload;
         },
         updateComponentStyle(state, action) {
-            const { id, style } = action.payload;
-            const component = state.components.find(comp => comp.id === id);
-            if (component) {
-                component.style = { ...component.style, ...style };
+            const { id, style, content } = action.payload;
+            const componentToUpdate = state.components.find(comp =>
+                comp.subComponents.some(sub => sub.pk === id)
+            );
+
+            if (componentToUpdate) {
+                const subComponentToUpdate = componentToUpdate.subComponents.find(sub => sub.pk === id);
+                if (subComponentToUpdate) {
+                    // Update style and content in the selected subcomponent
+                    subComponentToUpdate.componentInfo.attributes.style = { ...subComponentToUpdate.componentInfo.attributes.style, ...style };
+                    if (content !== undefined) {
+                        subComponentToUpdate.componentInfo.value = content;
+                    }
+                }
             }
         },
     },
