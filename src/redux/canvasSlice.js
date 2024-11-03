@@ -17,7 +17,7 @@ const canvasSlice = createSlice({
         setComponents(state, action) {
             state.components = action.payload;
         },
-        selectComponent(state, action) {
+        setSelectedComponent(state, action) {
             state.selectedComponent = action.payload;
         },
         updateComponentStyle(state, action) {
@@ -54,5 +54,5 @@ const canvasSlice = createSlice({
     },
 });
 
-export const { setInitialData, setComponents, selectComponent, updateComponentStyle } = canvasSlice.actions;
+export const { setInitialData, setComponents, setSelectedComponent, updateComponentStyle } = canvasSlice.actions;
 export default canvasSlice.reducer;

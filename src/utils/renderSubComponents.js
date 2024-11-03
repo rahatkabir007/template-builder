@@ -1,9 +1,9 @@
-export const renderSubComponents = (subComponents, handleSelectComponent) => {
+export const renderSubComponents = (subComponents, handlesetSelectedComponent) => {
     return subComponents?.map((subComp, index) => {
         const { type, src, alt, value, as, attributes } = subComp.componentInfo;
         const style = attributes?.style || {};
 
-        const handleClick = () => handleSelectComponent(subComp);
+        const handleClick = () => handlesetSelectedComponent(subComp);
 
         switch (type) {
             case 'image':

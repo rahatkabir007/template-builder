@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import { selectComponent, setComponents } from '../../redux/canvasSlice';
+import { setSelectedComponent, setComponents } from '../../redux/canvasSlice';
 import { v4 as uuidv4 } from 'uuid';
 import { renderSubComponents } from '../../utils/renderSubComponents';
 
@@ -34,8 +34,8 @@ const Canvas = () => {
         dispatch(setComponents([...components, newComponentInstance]));
     };
 
-    const handleSelectComponent = (subComp) => {
-        dispatch(selectComponent(subComp));
+    const handlesetSelectedComponent = (subComp) => {
+        dispatch(setSelectedComponent(subComp));
     };
 
     return (
@@ -50,7 +50,7 @@ const Canvas = () => {
                         key={index}
                         className="p-4 bg-white rounded shadow cursor-pointer flex flex-col items-center justify-center"
                     >
-                        {renderSubComponents(comp?.subComponents, handleSelectComponent)}
+                        {renderSubComponents(comp?.subComponents, handlesetSelectedComponent)}
                     </div>
                 ))}
             </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateComponentStyle } from '../../redux/canvasSlice';
+import { setSelectedComponent, updateComponentStyle } from '../../redux/canvasSlice';
 import { renderCustomizationFields } from '../../utils/renderCustomizationFields';
 
 
@@ -36,6 +36,7 @@ const CustomizerPanel = () => {
     }, [selectedComponent]);
 
     const handleStyleChange = (e, unit) => {
+        e.stopPropagation()
         const { name, value } = e.target;
         const updatedStyle = { ...style, [name]: `${value}${unit || styleUnits[name] || ''}` };
         setStyle(updatedStyle);
@@ -50,6 +51,7 @@ const CustomizerPanel = () => {
     };
 
     const handleUnitChange = (e, property) => {
+        e.stopPropagation()
         const { value } = e.target;
         const updatedUnits = { ...styleUnits, [property]: value };
         setStyleUnits(updatedUnits);
@@ -59,6 +61,7 @@ const CustomizerPanel = () => {
     };
 
     const handleContentChange = (e) => {
+        e.stopPropagation()
         const newValue = e.target.value;
         setContentValue(newValue);
 
@@ -72,13 +75,16 @@ const CustomizerPanel = () => {
         }
     };
 
+
+
     return (
-        <div className="bg-gray-100 p-4">
-            <h2 className="text-lg font-semibold">Customizer - {selectedComponent?.componentInfo.label}</h2>
+        <div className="bg-gray-100 p-4" >
+            <h2 className="text-lg font-semibold">Customizer </h2>
+            <p> {selectedComponent?.componentInfo.label ? `Component - ${selectedComponent?.componentInfo.label}` : ``}</p>
             {selectedComponent ? (
-                <div>{renderCustomizationFields(selectedComponent, style, styleUnits, handleStyleChange, handleUnitChange, handleContentChange, contentValue)}</div>
+                <div onClick={(e) => e.stopPropagation()}>{renderCustomizationFields(selectedComponent, style, styleUnits, handleStyleChange, handleUnitChange, handleContentChange, contentValue)}</div>
             ) : (
-                <p>Select a component to customize</p>
+                <p>No component selected</p>
             )}
         </div>
     );
