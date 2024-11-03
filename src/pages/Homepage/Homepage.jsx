@@ -8,7 +8,6 @@ const Homepage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // Clear selectedComponent on reload
         dispatch(setSelectedComponent(null));
     }, [dispatch]);
 

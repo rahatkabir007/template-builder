@@ -19,10 +19,8 @@ const Canvas = () => {
     });
 
     const addComponent = (component) => {
-        // Generate a unique instanceId
         const instanceId = uuidv4();
 
-        // Create a deep copy of the component and assign the same instanceId
         const newComponentInstance = {
             ...component,
             instanceId: instanceId,
@@ -31,7 +29,6 @@ const Canvas = () => {
                 instanceId: instanceId
             }))
         };
-        // Dispatch the action to update components in the Redux state
         dispatch(setComponents([...components, newComponentInstance]));
     };
 

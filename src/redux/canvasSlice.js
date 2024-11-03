@@ -1,4 +1,3 @@
-// redux/canvasSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -39,10 +38,9 @@ const canvasSlice = createSlice({
                             }
                         };
                     }
-                    return sub; // Return unchanged subcomponents
+                    return sub;
                 });
 
-                // Return a new state array with the updated component
                 return {
                     ...state,
                     components: state.components.map(comp =>

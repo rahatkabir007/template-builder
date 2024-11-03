@@ -1,4 +1,3 @@
-// utils/customizationFields.js
 import React from 'react';
 import { objectCover, textAlign, units } from '../datas/componentData';
 

@@ -17,16 +17,13 @@ const CustomizerPanel = () => {
             setStyle(initialStyle);
             setContentValue(selectedComponent?.componentInfo?.value || '');
 
-            // Initialize units to 'px' for each relevant style field, if not already set
             const initialUnits = {};
             Object.keys(initialStyle).forEach(key => {
                 if (['fontSize', 'width', 'height', 'marginTop'].includes(key)) {
                     const value = initialStyle[key];
                     if (typeof value === 'string') {
-                        // Extract the numeric part and unit (if any)
                         initialUnits[key] = value.replace(/[\d.]+/, '');
                     } else {
-                        // Default unit as 'px' for non-string values
                         initialUnits[key] = 'px';
                     }
                 }
@@ -55,8 +52,6 @@ const CustomizerPanel = () => {
         const { value } = e.target;
         const updatedUnits = { ...styleUnits, [property]: value };
         setStyleUnits(updatedUnits);
-
-        // Apply the selected unit to the current style value
         handleStyleChange({ target: { name: property, value: parseFloat(style[property]) || '' } }, value);
     };
 
