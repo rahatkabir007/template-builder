@@ -10,7 +10,7 @@ const Canvas = ({ onSelectComponent }) => {
         localStorage.setItem('canvasComponents', JSON.stringify(components));
     }, [components]);
 
-    const [{ isOver }, drop] = useDrop({
+    const [drop] = useDrop({
         accept: 'component',
         drop: (item) => addComponent(item.component),
         collect: (monitor) => ({

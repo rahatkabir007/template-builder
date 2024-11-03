@@ -15,8 +15,7 @@ const Sidebar = () => (
 );
 
 const DraggableComponent = ({ component }) => {
-    console.log(component);
-    const [{ isDragging }, drag] = useDrag({
+    const [drag] = useDrag({
         type: 'component',
         item: { component },
         collect: (monitor) => ({
