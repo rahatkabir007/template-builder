@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSelectedComponent, updateComponentStyle } from '../../redux/canvasSlice';
+import { updateComponentStyle } from '../../redux/canvasSlice';
 import { renderCustomizationFields } from '../../utils/renderCustomizationFields';
 
 
