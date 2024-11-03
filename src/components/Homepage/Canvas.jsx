@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { selectComponent, setComponents } from '../../redux/canvasSlice';
 
-
 const Canvas = () => {
     const components = useSelector(state => state.canvas.components);
     const dispatch = useDispatch();
@@ -31,8 +30,9 @@ const Canvas = () => {
         dispatch(setComponents([...components, component]));
     };
 
-    const handleSelectComponent = (comp) => {
-        dispatch(selectComponent(comp));
+    const handleSelectComponent = (subComp) => {
+        console.log(subComp);
+        dispatch(selectComponent(subComp));
     };
 
     return (
@@ -42,10 +42,9 @@ const Canvas = () => {
                 {components?.map((comp, index) => (
                     <div
                         key={index}
-                        onClick={() => handleSelectComponent(comp)}
-                        className="p-4  bg-white rounded shadow cursor-pointer flex flex-col items-center justify-center"
+                        className="p-4 bg-white rounded shadow cursor-pointer flex flex-col items-center justify-center"
                     >
-                        {renderSubComponents(comp?.subComponents)}
+                        {renderSubComponents(comp?.subComponents, handleSelectComponent)}
                     </div>
                 ))}
             </div>
@@ -53,33 +52,60 @@ const Canvas = () => {
     );
 };
 
-// Original renderSubComponents function
-const renderSubComponents = (subComponents) => {
+// Modified renderSubComponents function to pass handleSelectComponent
+const renderSubComponents = (subComponents, handleSelectComponent) => {
     return subComponents?.map((subComp, index) => {
         const { type, src, alt, value, href, as, attributes } = subComp.componentInfo;
         const style = attributes?.style || {};
 
+        const handleClick = () => handleSelectComponent(subComp);
+
         switch (type) {
             case 'image':
-                return <img key={index} src={src} alt={alt} style={style} />;
+                return (
+                    <img
+                        key={index}
+                        src={src}
+                        alt={alt}
+                        style={style}
+                        onClick={handleClick}
+                        className="cursor-pointer"
+                    />
+                );
             case 'text':
                 return (
-                    <p key={index} style={style}>
+                    <p
+                        key={index}
+                        style={style}
+                        onClick={handleClick}
+                        className="cursor-pointer"
+                    >
                         {value}
                     </p>
                 );
             case 'heading':
                 const HeadingTag = as || 'h1';
                 return (
-                    <HeadingTag key={index} style={style}>
+                    <HeadingTag
+                        key={index}
+                        style={style}
+                        onClick={handleClick}
+                        className="cursor-pointer"
+                    >
                         {value}
                     </HeadingTag>
                 );
             case 'button':
                 return (
-                    <a key={index} href={href} style={style}>
+                    <span
+                        key={index}
+                        // href={href}
+                        style={style}
+                        onClick={handleClick}
+                        className="cursor-pointer"
+                    >
                         {value}
-                    </a>
+                    </span>
                 );
             default:
                 return null;
