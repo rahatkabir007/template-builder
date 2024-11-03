@@ -6,13 +6,13 @@ const CustomizerPanel = () => {
     const selectedComponent = useSelector(state => state.canvas.selectedComponent);
     const dispatch = useDispatch();
     const [style, setStyle] = useState({});
-    const [content, setContent] = useState('');
+    const [contentValue, setContentValue] = useState('');
 
     useEffect(() => {
         // Populate customizer with default styles when a new component is selected
         if (selectedComponent) {
             setStyle(selectedComponent?.componentInfo?.attributes?.style || {});
-            setContent(selectedComponent?.componentInfo?.value || '');
+            setContentValue(selectedComponent?.componentInfo?.value || '');
         }
     }, [selectedComponent]);
 
@@ -22,18 +22,28 @@ const CustomizerPanel = () => {
         setStyle(updatedStyle);
 
         if (selectedComponent) {
-            dispatch(updateComponentStyle({ id: selectedComponent.pk, style: updatedStyle }));
+            dispatch(updateComponentStyle({
+                instanceId: selectedComponent.instanceId,
+                id: selectedComponent.pk,
+                style: updatedStyle,
+            }));
         }
     };
 
     const handleContentChange = (e) => {
         const newValue = e.target.value;
-        setContent(newValue);
+        setContentValue(newValue);
 
         if (selectedComponent) {
-            dispatch(updateComponentStyle({ id: selectedComponent.pk, style, content: newValue }));
+            dispatch(updateComponentStyle({
+                instanceId: selectedComponent.instanceId,
+                id: selectedComponent.pk,
+                style,
+                content: newValue,
+            }));
         }
     };
+
 
     const renderCustomizationFields = () => {
         if (!selectedComponent) return null;
@@ -108,8 +118,8 @@ const CustomizerPanel = () => {
                         <label className="block mt-2">Text Content</label>
                         <input
                             type="text"
-                            value={content}
-                            onChange={handleContentChange}
+                            value={contentValue} // Use the state for content
+                            onChange={handleContentChange} // Update content on change
                             className="p-2 border border-gray-300 rounded w-full"
                         />
                     </>
@@ -120,8 +130,8 @@ const CustomizerPanel = () => {
                         <label className="block mt-2">Button Text</label>
                         <input
                             type="text"
-                            value={content}
-                            onChange={handleContentChange}
+                            value={contentValue} // Use the state for content
+                            onChange={handleContentChange} // Update content on change
                             className="p-2 border border-gray-300 rounded w-full"
                         />
                         <label className="block mt-2">Background Color</label>

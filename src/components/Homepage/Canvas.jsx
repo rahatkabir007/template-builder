@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { selectComponent, setComponents } from '../../redux/canvasSlice';
+import { v4 as uuidv4 } from 'uuid';
 
 const Canvas = () => {
     const components = useSelector(state => state.canvas.components);
@@ -27,11 +28,22 @@ const Canvas = () => {
     }, [components]);
 
     const addComponent = (component) => {
-        dispatch(setComponents([...components, component]));
+        // Generate a unique instanceId
+        const instanceId = uuidv4();
+
+        // Create a deep copy of the component and assign the same instanceId
+        const newComponentInstance = {
+            ...component,
+            instanceId: instanceId,
+            subComponents: component.subComponents.map(sub => ({
+                ...sub,
+                instanceId: instanceId
+            }))
+        };
+        dispatch(setComponents([...components, newComponentInstance]));
     };
 
     const handleSelectComponent = (subComp) => {
-        console.log(subComp);
         dispatch(selectComponent(subComp));
     };
 

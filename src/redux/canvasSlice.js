@@ -17,20 +17,34 @@ const canvasSlice = createSlice({
             state.selectedComponent = action.payload;
         },
         updateComponentStyle(state, action) {
-            const { id, style, content } = action.payload;
-            const componentToUpdate = state.components.find(comp =>
-                comp.subComponents.some(sub => sub.pk === id)
-            );
+            const { instanceId, id, style, content } = action.payload;
+            const componentToUpdate = state.components.find(comp => comp.instanceId === instanceId);
 
             if (componentToUpdate) {
-                const subComponentToUpdate = componentToUpdate.subComponents.find(sub => sub.pk === id);
-                if (subComponentToUpdate) {
-                    // Update style and content in the selected subcomponent
-                    subComponentToUpdate.componentInfo.attributes.style = { ...subComponentToUpdate.componentInfo.attributes.style, ...style };
-                    if (content !== undefined) {
-                        subComponentToUpdate.componentInfo.value = content;
+                const updatedSubComponents = componentToUpdate.subComponents.map(sub => {
+                    if (sub.pk === id) {
+                        return {
+                            ...sub,
+                            componentInfo: {
+                                ...sub.componentInfo,
+                                attributes: {
+                                    ...sub.componentInfo.attributes,
+                                    style: { ...sub.componentInfo.attributes.style, ...style }
+                                },
+                                value: content !== undefined ? content : sub.componentInfo.value,
+                            }
+                        };
                     }
-                }
+                    return sub; // Return unchanged subcomponents
+                });
+
+                // Return a new state array with the updated component
+                return {
+                    ...state,
+                    components: state.components.map(comp =>
+                        comp.instanceId === instanceId ? { ...comp, subComponents: updatedSubComponents } : comp
+                    ),
+                };
             }
         },
     },
