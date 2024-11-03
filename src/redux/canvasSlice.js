@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+    initialData: [],
     components: [],
     selectedComponent: null,
 };
@@ -10,6 +11,9 @@ const canvasSlice = createSlice({
     name: 'canvas',
     initialState,
     reducers: {
+        setInitialData(state, action) {
+            state.initialData = action.payload;
+        },
         setComponents(state, action) {
             state.components = action.payload;
         },
@@ -50,5 +54,5 @@ const canvasSlice = createSlice({
     },
 });
 
-export const { setComponents, selectComponent, updateComponentStyle } = canvasSlice.actions;
+export const { setInitialData, setComponents, selectComponent, updateComponentStyle } = canvasSlice.actions;
 export default canvasSlice.reducer;

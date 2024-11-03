@@ -60,7 +60,7 @@ const Canvas = () => {
 // Render subcomponents function
 const renderSubComponents = (subComponents, handleSelectComponent) => {
     return subComponents?.map((subComp, index) => {
-        const { type, src, alt, value, href, as, attributes } = subComp.componentInfo;
+        const { type, src, alt, value, as, attributes } = subComp.componentInfo;
         const style = attributes?.style || {};
 
         const handleClick = () => handleSelectComponent(subComp);

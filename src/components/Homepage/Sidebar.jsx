@@ -2,16 +2,19 @@ import React from 'react';
 import { useDrag } from 'react-dnd';
 import { COMPONENTS } from '../../datas/componentData';
 
-const Sidebar = () => (
-    <div className="p-4">
-        <h2 className="text-lg font-semibold">Components</h2>
-        <ul>
-            {COMPONENTS.map((comp) => (
-                <DraggableComponent key={comp.id} component={comp} />
-            ))}
-        </ul>
-    </div>
-);
+const Sidebar = () => {
+
+    return (
+        <div className="p-4">
+            <h2 className="text-lg font-semibold">Components</h2>
+            <ul>
+                {COMPONENTS.map((comp) => (
+                    <DraggableComponent key={comp.id} component={comp} />
+                ))}
+            </ul>
+        </div>
+    )
+};
 
 const DraggableComponent = ({ component }) => {
     const [{ isDragging }, drag] = useDrag({
