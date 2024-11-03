@@ -3,7 +3,7 @@ import Sidebar from './Sidebar';
 import Canvas from './Canvas';
 import CustomizerPanel from './CustomizerPanel';
 
-const App = () => {
+const EmailTemplateBuilder = () => {
 
     const [selectedComponent, setSelectedComponent] = useState(null);
 
@@ -26,4 +26,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default EmailTemplateBuilder;
