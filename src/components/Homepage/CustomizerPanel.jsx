@@ -1,29 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateComponentStyle } from '../../redux/canvasSlice';
 
-const CustomizerPanel = ({ component }) => {
-    const [style, setStyle] = useState(component ? component.style : {});
 
-    useEffect(() => {
-        if (component) {
-            setStyle(component.style);
-        }
-    }, [component]);
+const CustomizerPanel = () => {
+    const selectedComponent = useSelector(state => state.canvas.selectedComponent);
+    const dispatch = useDispatch();
+    const [style, setStyle] = useState(selectedComponent?.style || {});
 
     const handleStyleChange = (e) => {
         const { name, value } = e.target;
-        setStyle((prevStyle) => ({ ...prevStyle, [name]: value }));
+        const updatedStyle = { ...style, [name]: value };
+        setStyle(updatedStyle);
+
+        if (selectedComponent) {
+            dispatch(updateComponentStyle({ id: selectedComponent.id, style: updatedStyle }));
+        }
     };
 
     return (
         <div className="bg-gray-100 p-4">
             <h2 className="text-lg font-semibold">Customizer</h2>
-            {component ? (
+            {selectedComponent ? (
                 <div>
                     <label className="block mt-2">Font Size</label>
                     <input
                         type="number"
                         name="fontSize"
-                        // value={style.fontSize || ''}
+                        value={style.fontSize || ''}
                         onChange={handleStyleChange}
                         className="p-2 border border-gray-300 rounded w-full"
                     />
@@ -31,10 +35,11 @@ const CustomizerPanel = ({ component }) => {
                     <input
                         type="color"
                         name="color"
-                        // value={style.color || ''}
+                        value={style.color || ''}
                         onChange={handleStyleChange}
                         className="p-2 border border-gray-300 rounded w-full"
                     />
+                    {/* Add more customizations as needed */}
                 </div>
             ) : (
                 <p>Select a component to customize</p>

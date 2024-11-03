@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Sidebar from './Sidebar';
 import Canvas from './Canvas';
 import CustomizerPanel from './CustomizerPanel';
 
 const App = () => {
+
     const [selectedComponent, setSelectedComponent] = useState(null);
 
     const handleSelectComponent = (component) => {

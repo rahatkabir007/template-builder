@@ -1,39 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
+import { selectComponent, setComponents } from '../../redux/canvasSlice';
 
-const Canvas = ({ onSelectComponent }) => {
-    const [components, setComponents] = useState(
-        JSON.parse(localStorage.getItem('canvasComponents')) || []
-    );
 
-    useEffect(() => {
-        localStorage.setItem('canvasComponents', JSON.stringify(components));
-    }, [components]);
+const Canvas = () => {
+    const components = useSelector(state => state.canvas.components);
+    const dispatch = useDispatch();
 
     const [{ isOver }, drop] = useDrop({
         accept: 'component',
         drop: (item) => addComponent(item.component),
         collect: (monitor) => ({
-            isOver: !!monitor.isOver(),
+            isOver: monitor.isOver(),
         }),
     });
 
+    useEffect(() => {
+        // Load initial components from local storage if available
+        const savedComponents = JSON.parse(localStorage.getItem('canvasComponents')) || [];
+        dispatch(setComponents(savedComponents));
+    }, [dispatch]);
+
+    useEffect(() => {
+        // Save components to local storage whenever they change
+        localStorage.setItem('canvasComponents', JSON.stringify(components));
+    }, [components]);
+
     const addComponent = (component) => {
-        setComponents([...components, component]);
+        dispatch(setComponents([...components, component]));
     };
 
-    const selectComponent = (component) => {
-        onSelectComponent(component);
+    const handleSelectComponent = (comp) => {
+        dispatch(selectComponent(comp));
     };
 
     return (
-        <div ref={drop} className={`h-screen p-4 ${isOver && components?.length > 1 ? 'bg-gray-100' : ''}`}>
+        <div ref={drop} className="p-4">
             <h2 className="text-lg font-semibold">Canvas</h2>
-            {components?.map((comp, index) => (
+            {components.map((comp, index) => (
                 <div
                     key={index}
-                    onClick={() => selectComponent(comp)}
-                    className="p-4 m-2 bg-white rounded shadow cursor-pointer flex flex-col justify-center items-center"
+                    onClick={() => handleSelectComponent(comp)}
+                    className="p-4 m-2 bg-white rounded shadow cursor-pointer flex flex-col items-center justify-center"
                 >
                     {renderSubComponents(comp.subComponents)}
                 </div>
@@ -42,7 +51,7 @@ const Canvas = ({ onSelectComponent }) => {
     );
 };
 
-// Function to render each subcomponent based on its type and attributes
+// Original renderSubComponents function
 const renderSubComponents = (subComponents) => {
     return subComponents.map((subComp, index) => {
         const { type, src, alt, value, href, as, attributes } = subComp.componentInfo;
