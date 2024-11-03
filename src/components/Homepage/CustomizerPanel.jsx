@@ -31,7 +31,7 @@ const CustomizerPanel = ({ component }) => {
                     <input
                         type="color"
                         name="color"
-                        value={style.color || ''}
+                        // value={style.color || ''}
                         onChange={handleStyleChange}
                         className="p-2 border border-gray-300 rounded w-full"
                     />

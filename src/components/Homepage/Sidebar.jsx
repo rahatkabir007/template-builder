@@ -18,7 +18,7 @@ const DraggableComponent = ({ component }) => {
         type: 'component',
         item: { component },
         collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
+            isDragging: !!monitor.isDragging(),
         }),
     });
 

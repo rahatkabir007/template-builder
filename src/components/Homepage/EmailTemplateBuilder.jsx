@@ -15,7 +15,7 @@ const App = () => {
             <div className='basis-[30%] bg-gray-100'>
                 <Sidebar />
             </div>
-            <div className='basis-[40%] bg-gray-50 h-screen overflow-auto'>
+            <div className='basis-[40%] bg-gray-50 max-h-screen overflow-auto'>
                 <Canvas onSelectComponent={handleSelectComponent} />
             </div>
             <div className='basis-[30%] bg-gray-100'>

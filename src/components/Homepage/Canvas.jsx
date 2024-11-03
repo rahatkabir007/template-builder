@@ -14,7 +14,7 @@ const Canvas = ({ onSelectComponent }) => {
         accept: 'component',
         drop: (item) => addComponent(item.component),
         collect: (monitor) => ({
-            isOver: monitor.isOver(),
+            isOver: !!monitor.isOver(),
         }),
     });
 
@@ -27,9 +27,9 @@ const Canvas = ({ onSelectComponent }) => {
     };
 
     return (
-        <div ref={drop} className={`p-4 ${isOver ? 'bg-gray-100' : ''}`}>
+        <div ref={drop} className={`h-screen p-4 ${isOver && components?.length > 1 ? 'bg-gray-100' : ''}`}>
             <h2 className="text-lg font-semibold">Canvas</h2>
-            {components.map((comp, index) => (
+            {components?.map((comp, index) => (
                 <div
                     key={index}
                     onClick={() => selectComponent(comp)}
