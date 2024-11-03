@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { selectComponent, setComponents } from '../../redux/canvasSlice';
@@ -16,17 +16,6 @@ const Canvas = () => {
         }),
     });
 
-    useEffect(() => {
-        // Load initial components from local storage if available
-        const savedComponents = JSON.parse(localStorage.getItem('canvasComponents')) || [];
-        dispatch(setComponents(savedComponents));
-    }, [dispatch]);
-
-    useEffect(() => {
-        // Save components to local storage whenever they change
-        localStorage.setItem('canvasComponents', JSON.stringify(components));
-    }, [components]);
-
     const addComponent = (component) => {
         // Generate a unique instanceId
         const instanceId = uuidv4();
@@ -40,6 +29,7 @@ const Canvas = () => {
                 instanceId: instanceId
             }))
         };
+        // Dispatch the action to update components in the Redux state
         dispatch(setComponents([...components, newComponentInstance]));
     };
 
@@ -50,7 +40,10 @@ const Canvas = () => {
     return (
         <div>
             <h2 className="text-lg font-semibold px-5 pt-5">Canvas</h2>
-            <div ref={drop} className={`p-5 min-h-screen flex flex-col gap-3 ${isOver ? 'bg-gray-100 m-4 p-4 rounded-lg' : ''}`}>
+            <div
+                ref={drop}
+                className={`p-5 min-h-screen flex flex-col gap-3 ${isOver ? 'bg-gray-100 m-4 p-4 rounded-lg' : ''}`}
+            >
                 {components?.map((comp, index) => (
                     <div
                         key={index}
@@ -64,7 +57,7 @@ const Canvas = () => {
     );
 };
 
-// Modified renderSubComponents function to pass handleSelectComponent
+// Render subcomponents function
 const renderSubComponents = (subComponents, handleSelectComponent) => {
     return subComponents?.map((subComp, index) => {
         const { type, src, alt, value, href, as, attributes } = subComp.componentInfo;

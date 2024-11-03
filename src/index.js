@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import { ToastContainer } from "react-toastify";
 import { Provider } from 'react-redux';
-import store from './store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -24,9 +25,12 @@ root.render(
       draggable
       pauseOnHover
     />
-    <DndProvider backend={HTML5Backend}>
-      <App />
-    </DndProvider>
+    <PersistGate loading={null} persistor={persistor}>
+      <DndProvider backend={HTML5Backend}>
+        <App />
+      </DndProvider>
+    </PersistGate>
+
   </Provider>
 );
 

@@ -1,12 +1,23 @@
 // redux/store.js
 import { configureStore } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import canvasReducer from './redux/canvasSlice';
+
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, canvasReducer);
 
 const store = configureStore({
   reducer: {
-    canvas: canvasReducer,
+    canvas: persistedReducer,
   },
   devTools: process.env.NODE_ENV !== 'production',
 });
 
-export default store;
+const persistor = persistStore(store);
+
+export { store, persistor };
