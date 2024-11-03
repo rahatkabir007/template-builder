@@ -36,24 +36,26 @@ const Canvas = () => {
     };
 
     return (
-        <div ref={drop} className="p-4">
-            <h2 className="text-lg font-semibold">Canvas</h2>
-            {components.map((comp, index) => (
-                <div
-                    key={index}
-                    onClick={() => handleSelectComponent(comp)}
-                    className="p-4 m-2 bg-white rounded shadow cursor-pointer flex flex-col items-center justify-center"
-                >
-                    {renderSubComponents(comp.subComponents)}
-                </div>
-            ))}
+        <div>
+            <h2 className="text-lg font-semibold px-5 pt-5">Canvas</h2>
+            <div ref={drop} className={`p-5 min-h-screen flex flex-col gap-3 ${isOver ? 'bg-gray-100 m-4 p-4 rounded-lg' : ''}`}>
+                {components?.map((comp, index) => (
+                    <div
+                        key={index}
+                        onClick={() => handleSelectComponent(comp)}
+                        className="p-4  bg-white rounded shadow cursor-pointer flex flex-col items-center justify-center"
+                    >
+                        {renderSubComponents(comp?.subComponents)}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
 
 // Original renderSubComponents function
 const renderSubComponents = (subComponents) => {
-    return subComponents.map((subComp, index) => {
+    return subComponents?.map((subComp, index) => {
         const { type, src, alt, value, href, as, attributes } = subComp.componentInfo;
         const style = attributes?.style || {};
 
