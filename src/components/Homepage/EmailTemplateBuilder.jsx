@@ -20,7 +20,7 @@ const EmailTemplateBuilder = () => {
             <div className="basis-[40%] bg-gray-50 max-h-screen overflow-auto">
                 <Canvas />
             </div>
-            <div className="basis-[30%] bg-gray-100" onClick={(e) => resetSelectedComponent(e)}>
+            <div className="basis-[30%] bg-gray-100">
                 <CustomizerPanel />
             </div>
         </div>

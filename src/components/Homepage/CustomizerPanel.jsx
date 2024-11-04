@@ -72,12 +72,14 @@ const CustomizerPanel = () => {
 
 
 
+
     return (
         <div className="bg-gray-100 p-4" >
             <h2 className="text-lg font-semibold">Customizer </h2>
             <p> {selectedComponent?.componentInfo.label ? `Component - ${selectedComponent?.componentInfo.label}` : ``}</p>
+
             {selectedComponent ? (
-                <div onClick={(e) => e.stopPropagation()}>{renderCustomizationFields(selectedComponent, style, styleUnits, handleStyleChange, handleUnitChange, handleContentChange, contentValue)}</div>
+                <div>{renderCustomizationFields(selectedComponent, style, styleUnits, handleStyleChange, handleUnitChange, handleContentChange, contentValue)}</div>
             ) : (
                 <p>No component selected</p>
             )}
