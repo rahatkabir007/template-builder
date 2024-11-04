@@ -52,10 +52,10 @@ const Canvas = () => {
             <div className='flex items-center justify-between px-5'>
                 <h2 className="text-lg font-semibold pt-5">Canvas</h2>
                 <div className="flex gap-2 mt-4">
-                    <button onClick={handleUndo} disabled={undoStack.length === 0} className={`${undoStack.length === 0 ? 'opacity-50' : 'opacity-100'} bg-gray-200 p-2 rounded}`}>
+                    <button onClick={handleUndo} disabled={undoStack.length === 0} className={`${undoStack.length === 0 ? 'opacity-50 cursor-not-allowed' : 'opacity-100'} bg-gray-200 p-2 rounded}`}>
                         Undo
                     </button>
-                    <button onClick={handleRedo} disabled={redoStack.length === 0} className={`${redoStack.length === 0 ? 'opacity-50' : 'opacity-100'} bg-gray-200 p-2 rounded}`}>
+                    <button onClick={handleRedo} disabled={redoStack.length === 0} className={`${redoStack.length === 0 ? 'opacity-50 cursor-not-allowed' : 'opacity-100'} bg-gray-200 p-2 rounded}`}>
                         Redo
                     </button>
                 </div>
